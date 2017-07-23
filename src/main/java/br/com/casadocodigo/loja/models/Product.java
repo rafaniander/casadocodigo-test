@@ -4,12 +4,15 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Min;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -39,7 +42,11 @@ public class Product {
     private String summaryPath;
 
     @ElementCollection
-    private List<Price> prices = new ArrayList<Price>();
+    private List<Price> prices = new ArrayList<>();
+    
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id")
+    private List<Author> authors = new ArrayList<>();
 
     public Integer getId() {
         return id;
@@ -91,6 +98,14 @@ public class Product {
 
     public void setPrices(List<Price> prices) {
         this.prices = prices;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(List<Author> authors) {
+        this.authors = authors;
     }
 
     public BigDecimal priceFor(BookType bookType) {

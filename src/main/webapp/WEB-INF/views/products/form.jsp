@@ -10,12 +10,12 @@
     </head>
     <body>
         <spring:hasBindErrors name="product">
-		<ul>
-		<c:forEach var="error" items="${errors.allErrors}">	
-			<li>${error.code}-${error.field}</li>
-		</c:forEach>
-		</ul>
-	</spring:hasBindErrors>
+            <ul>
+                <c:forEach var="error" items="${errors.allErrors}">	
+                    <li>${error.code}-${error.field}</li>
+                    </c:forEach>
+            </ul>
+        </spring:hasBindErrors>
         <form:form action="${spring:mvcUrl('PC#save').build()}" 
                    method="post" 
                    commandName="product"
@@ -52,9 +52,19 @@
                     <input type="hidden" name="prices[${status.index}].bookType" value="${bookType}"/>
                 </div>
             </c:forEach>
+
+            <div>
+                <label for="autor">Autor</label>
+                <input name="autor" type="text"/>  
+                <button type="submit">Add Autor</button>
+            </div>
+
             <div>
                 <button type="submit">Enviar</button>
             </div>
         </form:form>
+        
+        <spring:url value="/resources/js/form-product.js" var="yourJS"></spring:url>
+        <script src="${yourJS}"></script>
     </body>
 </html>

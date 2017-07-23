@@ -18,9 +18,13 @@ import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.web.accept.ContentNegotiationManager;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.HandlerMapping;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.AbstractHandlerMapping;
 import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -37,6 +41,27 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
         resolver.setExposedContextBeanNames("shoppingCart");
         return resolver;
     }
+    
+    // equivalents for <mvc:resources/> tags
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
+
+    // equivalent for <mvc:default-servlet-handler/> tag
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+
+    //retorna um objeto de HandlerMapping que é necessário (não me pergunte o pq rsrs)
+//    @Override
+//    @Bean
+//    public HandlerMapping resourceHandlerMapping() {
+//        AbstractHandlerMapping handlerMapping = (AbstractHandlerMapping) super.resourceHandlerMapping();
+//        handlerMapping.setOrder(-1);
+//        return handlerMapping;
+//    }
 
     @Bean
     public MessageSource messageSource() {
