@@ -195,4 +195,5 @@
             </snapshots>
         </repository>
     </repositories>
+    <name>casadocodigo-test</name>
 </project>

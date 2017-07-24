@@ -56,7 +56,7 @@
             <div>
                 <label for="autor">Autor</label>
                 <input name="autor" type="text"/>  
-                <button type="submit">Add Autor</button>
+                <button type="button" id="add-autor">Add Autor</button>
             </div>
 
             <div>
